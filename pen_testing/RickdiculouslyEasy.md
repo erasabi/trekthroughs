@@ -181,38 +181,36 @@ Looks like I have another date with netcat :)
 <img src="https://user-images.githubusercontent.com/15791354/38782104-5bfac99e-40bc-11e8-878b-a443d8115b13.jpg">
 <br>OpenSSH is the open source SSH service. Might I actually have the ability to ssh in after all?</p>
 
-
-
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782105-5c0842f4-40bc-11e8-82b4-0b81af616a4f.jpg">
-</p>
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782106-5c158392-40bc-11e8-91f1-266ed6c077ae.jpg">
 <br>I guess so!</p>
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782107-5c2438a6-40bc-11e8-91b5-ec5972083f27.jpg">
-</p>
 
 3.7 Port 60000: unknown service
 
 You know the drill by now people…
+
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782108-5c3341c0-40bc-11e8-828b-174b231d016a.jpg">
+<img src="https://user-images.githubusercontent.com/15791354/38782106-5c158392-40bc-11e8-91f1-266ed6c077ae.jpg">
 </p>
+
 Netcatting into 60000 has given me access to a reverse shell, which is basically when a shell (terminal) is communicated from the target –> attack machine rather than the other way around.
 
 <p align="center">
-
+<img src="https://user-images.githubusercontent.com/15791354/38782107-5c2438a6-40bc-11e8-91b5-ec5972083f27.jpg">
+<br>The commands I could execute in this shell/terminal were really limited, but I was able to find this flag and read it for 50/130 pts.</p>
 
 4 Gaining Access: Getting usernames, passwords, and other credentials to gain ownership of anything
 
 4.1 Summer:
 I’ll try and login with one of the usernames I found, using the only password I have so far (winter).
 
-I’m in the target machine as user: Summer, whose password is winter. Listing what’s in the directory reveals the flag for 60/130. Now I have access to move all around the file system of my target, but this doesn’t mean it’s over because even though I can see what’s in these directories I might not have the permission to read/write/execute everything. This is why getting root is everything, because it lets you do exactly that by being the user with the greatest privileges. 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782108-5c3341c0-40bc-11e8-828b-174b231d016a.jpg">
+</p>
 
+I’m in the target machine as user: Summer, whose password is winter. Listing what’s in the directory reveals the flag for 60/130. Now I have access to move all around the file system of my target, but this doesn’t mean it’s over because even though I can see what’s in these directories I might not have the permission to read/write/execute everything. This is why getting root is everything, because it lets you do exactly that by being the user with the greatest privileges.
+
+<p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782109-5c40a1bc-40bc-11e8-84b8-93b91f79b7c2.jpg">
 <br>The commands I could execute in this shell/terminal were really limited, but I was able to find this flag and read it for 50/130 pts</p>
 
