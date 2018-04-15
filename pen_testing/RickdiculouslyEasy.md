@@ -219,16 +219,16 @@ Checking where I am in the file system shows the location /home in the directory
 4.2 Morty
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782111-5c5e3362-40bc-11e8-8fac-fd90a1c88c69.png">
-<br></p>
+<img src="https://user-images.githubusercontent.com/15791354/38782110-5c4f25ac-40bc-11e8-9c6d-5fbbe95c2429.png">
+</p>
 
 Using the ```–l``` flag allowed me to see what permissions (blue) my user has with Morty’s files, not just their names (red). These permissions show that Summer is allowed only to read(r) the files, but not allowed to write(w) or execute(x). The first file is a zipped text file that asks for a password to unzip it. But even if I had it, my permissions won’t allow me to actually decompress the file. The second is a JPG image file, which I can’t visually see in a terminal because it doesn’t have a graphic interface. Luckily, read permission still allows me to copy the files to my attack machine where I have the highest permissions. This can be done using a number of tools like netcat and SCP, but I’m going to copy the files to Summer’s directory and use FTP to send it to my Kali. 
 
 Copying:
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782110-5c4f25ac-40bc-11e8-9c6d-5fbbe95c2429.png">
-</p>
+<img src="https://user-images.githubusercontent.com/15791354/38782111-5c5e3362-40bc-11e8-8fac-fd90a1c88c69.png">
+<br></p>
 
 Sending back to Kali w/FTP: 
 
