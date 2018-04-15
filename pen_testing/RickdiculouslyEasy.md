@@ -204,62 +204,69 @@ You know the drill by now people…
 Netcatting into 60000 has given me access to a reverse shell, which is basically when a shell (terminal) is communicated from the target –> attack machine rather than the other way around.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782109-5c40a1bc-40bc-11e8-84b8-93b91f79b7c2.jpg">
-<br>The commands I could execute in this shell/terminal were really limited, but I was able to find this flag and read it for 50/130 pts</p>
+
 
 4 Gaining Access: Getting usernames, passwords, and other credentials to gain ownership of anything
 
 4.1 Summer:
 I’ll try and login with one of the usernames I found, using the only password I have so far (winter).
-<p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782110-5c4f25ac-40bc-11e8-9c6d-5fbbe95c2429.png">
-</p>
+
 I’m in the target machine as user: Summer, whose password is winter. Listing what’s in the directory reveals the flag for 60/130. Now I have access to move all around the file system of my target, but this doesn’t mean it’s over because even though I can see what’s in these directories I might not have the permission to read/write/execute everything. This is why getting root is everything, because it lets you do exactly that by being the user with the greatest privileges. 
+
+<img src="https://user-images.githubusercontent.com/15791354/38782109-5c40a1bc-40bc-11e8-84b8-93b91f79b7c2.jpg">
+<br>The commands I could execute in this shell/terminal were really limited, but I was able to find this flag and read it for 50/130 pts</p>
+
+Checking where I am in the file system shows the location /home in the directory (folder) /Summer. Cool. So I backed up into the home directory and listed the contents there to find two more dirs (directories) that weren’t Summer: Morty and RickSanchez; the other usernames I found. I’ll look at Morty first…
+
+4.2 Morty
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782111-5c5e3362-40bc-11e8-8fac-fd90a1c88c69.png">
 <br></p>
-Checking where I am in the file system shows the location /home in the directory (folder) /Summer. Cool. So I backed up into the home directory and listed the contents there to find two more dirs (directories) that weren’t Summer: Morty and RickSanchez; the other usernames I found. I’ll look at Morty first…
 
-4.2 Morty
-<p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782112-5c6c201c-40bc-11e8-99a0-6f8f06587002.jpg">
-</p>
 Using the ```–l``` flag allowed me to see what permissions (blue) my user has with Morty’s files, not just their names (red). These permissions show that Summer is allowed only to read(r) the files, but not allowed to write(w) or execute(x). The first file is a zipped text file that asks for a password to unzip it. But even if I had it, my permissions won’t allow me to actually decompress the file. The second is a JPG image file, which I can’t visually see in a terminal because it doesn’t have a graphic interface. Luckily, read permission still allows me to copy the files to my attack machine where I have the highest permissions. This can be done using a number of tools like netcat and SCP, but I’m going to copy the files to Summer’s directory and use FTP to send it to my Kali. 
 
 Copying:
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782110-5c4f25ac-40bc-11e8-9c6d-5fbbe95c2429.png">
+</p>
+
+Sending back to Kali w/FTP: 
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782112-5c6c201c-40bc-11e8-99a0-6f8f06587002.jpg">
+</p>
+
+After grabbing the two files, I opened the JPG to see if the picture would show me something.
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782113-5c8064d2-40bc-11e8-9c21-ef1f8be63943.jpg">
 </p>
 
-Sending back to Kali w/FTP: 
+Worthless. My next guess is to check for Steganography, which is a term for hidden data inside a file, be it pictures, music, etc. An easy tool that checks any file time for human readable words is called strings.
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782114-5c919c8e-40bc-11e8-8104-6b2ad5d1ef0e.jpg">
 <br></p>
 
-After grabbing the two files, I opened the JPG to see if the picture would show me something.
-<p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782115-5c9f90b4-40bc-11e8-81b2-f13ca0cfca68.jpg">
-</p>
-
-Worthless. My next guess is to check for Steganography, which is a term for hidden data inside a file, be it pictures, music, etc. An easy tool that checks any file time for human readable words is called strings.
-
-
 Most of what strings output can only be described as pure garbage. But from the first few results was an entire message telling me the password to my journal zip file (Meeseek). Applying this password gives me journal.txt.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782116-5cac47be-40bc-11e8-8ee8-b41660ec8cf1.png">
+<img src="https://user-images.githubusercontent.com/15791354/38782115-5c9f90b4-40bc-11e8-81b2-f13ca0cfca68.jpg">
 </p>
 
 Reading this file gives me some kind of hint about a password and the flag{131333} for 80/130 pts. Now I’ll SSH back into the target as Summer and check out RickSanchez’s directory.
 
 4.3 RickSanchez
 
-
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782116-5cac47be-40bc-11e8-8ee8-b41660ec8cf1.png">
+<br>So Rick has two directories inside of his own. One that claims not to have flags, which I checked out anyway…more cats. And the other, RICKS_SAFE.</p>
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782117-5cbba9e8-40bc-11e8-8695-94cef23b8fa0.jpg">
-<br>So Rick has two directories inside of his own. One that claims not to have flags, which I checked out anyway…more cats. And the other, RICKS_SAFE.</p>
+</p>
 
 In here I find a file called safe, which I can read but no more. Trying to read this file, however, will produce complete garbage. Why? Because it is not a text file, but a binary file (i.e. program/executable). Permission do not allow me to run this program, but I already explained how to get around this.
 
