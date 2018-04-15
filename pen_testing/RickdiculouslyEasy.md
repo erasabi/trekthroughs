@@ -36,7 +36,8 @@ Gathering information that is more active. Establishing connections and interact
        	#5 Maintaining Access: No IT department to defend the vulnerable network from attackers or fix issues
 	#6 Cover Tracks: 	No one cares if you break into my target. In fact that’s the point.
 
-![image001](https://user-images.githubusercontent.com/15791354/38782081-517d3d9e-40bc-11e8-9961-91d0c9d7f757.jpg)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782081-517d3d9e-40bc-11e8-9961-91d0c9d7f757.jpg"></p>
 
 1 Recon: 	Collect information on anything that will help understand the target. 
 
@@ -49,20 +50,44 @@ I’ll open up my Kali using Terminator which is just like the regular terminal 
 select:  ```Activities (upper left)>Terminator (red icon)``` 
 type: ```ifconfig```
 
-<img align="right;" src="https://user-images.githubusercontent.com/15791354/38782084-5ad7ca08-40bc-11e8-8e3c-d7c43223fe4e.jpg">
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782084-5ad7ca08-40bc-11e8-8e3c-d7c43223fe4e.jpg"></p>
 
-![image003](https://user-images.githubusercontent.com/15791354/38782085-5ae660e0-40bc-11e8-87c6-82a561636a4f.png)
+The ifconfig command shows me the details of my Ethernet connection. In blue is my ip address and in red is my netmask, which tells me the range of possible ip addresses that devices in my subnetwork can use. Because 255 fills the first three segments of the netmask, this tells me the range of ip addresses in my local network can be between 192.168.241.0-255. So I know that one of these options with the exception of my own address, must be my target. So let’s scan this range and find out what other live ip addresses there are. There are many tools that can perform scans, but I’m going to use nmap.
 
-![image004](https://user-images.githubusercontent.com/15791354/38782086-5af7ba5c-40bc-11e8-855c-d82a00bd4c16.jpg)
+type: ```nmap 182.168.241.0-255 in the terminal and press enter```
 
-![image005](https://user-images.githubusercontent.com/15791354/38782087-5b072d66-40bc-11e8-9e94-7e179235637c.jpg)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782085-5ae660e0-40bc-11e8-87c6-82a561636a4f.png">
+<br>Nmap shows the only other viable live address to be 192.168.241.160 aka my target :)
+</p>
 
-![image006](https://user-images.githubusercontent.com/15791354/38782088-5b1eb86e-40bc-11e8-9fa0-550b36726786.jpg)
+**There will be another target up on your network for more advanced kids. You can differentiate between the two using steps later in this doc, but for now just know your ip address will have a port open running a service called “zeus admin”.
 
-![image007](https://user-images.githubusercontent.com/15791354/38782089-5b2c772e-40bc-11e8-96e6-d0886c032ae3.jpg)
+2 Scanning: 		Discover operating systems, open ports, running services, vulnerabilities 
+2.1 Operating System:
+Finding out the OS of the target can be done using a technique called banner grabbing. The process of communicating with the target device and using the way in which it responds to determine what type of OS it is. ```nmap –A <targetIP>``` is a common way to do this:
 
-![image008](https://user-images.githubusercontent.com/15791354/38782090-5b3a7022-40bc-11e8-84cb-63d6413d11bf.jpg)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782086-5af7ba5c-40bc-11e8-855c-d82a00bd4c16.jpg">
+<br>The banner grab tells me the OS is a flavor of Unix known as Linux 3.2 - 4.0
+</p>
 
-![image009](https://user-images.githubusercontent.com/15791354/38782091-5b498044-40bc-11e8-8648-ae62c33ecf22.jpg)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782087-5b072d66-40bc-11e8-9e94-7e179235637c.jpg"></p>
 
-![image010](https://user-images.githubusercontent.com/15791354/38782092-5b5808ee-40bc-11e8-88e5-9d3358bee5fa.jpg)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782088-5b1eb86e-40bc-11e8-9fa0-550b36726786.jpg"></p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782089-5b2c772e-40bc-11e8-96e6-d0886c032ae3.jpg"></p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782090-5b3a7022-40bc-11e8-84cb-63d6413d11bf.jpg"></p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782091-5b498044-40bc-11e8-8648-ae62c33ecf22.jpg"></p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782092-5b5808ee-40bc-11e8-88e5-9d3358bee5fa.jpg"></p>
+
