@@ -1,3 +1,12 @@
+<style>
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+</style>
+
 ---
 author: elan rasabi
 comments: true
@@ -27,7 +36,7 @@ Gathering information that is more active. Establishing connections and interact
        	#5 Maintaining Access: No IT department to defend the vulnerable network from attackers or fix issues
 	#6 Cover Tracks: 	No one cares if you break into my target. In fact that’s the point.
 
-</t>![image001](https://user-images.githubusercontent.com/15791354/38782081-517d3d9e-40bc-11e8-9961-91d0c9d7f757.jpg)
+![image001](https://user-images.githubusercontent.com/15791354/38782081-517d3d9e-40bc-11e8-9961-91d0c9d7f757.jpg)
 
 1 Recon: 	Collect information on anything that will help understand the target. 
 
@@ -40,9 +49,8 @@ I’ll open up my Kali using Terminator which is just like the regular terminal 
 select:  ```Activities (upper left)>Terminator (red icon)``` 
 type: ```ifconfig```
 
-<img style="float: right;" src="https://www.superdrug.com/medias/sys_master/front-prd/front-prd/h6a/h00/9237434761246/Garnier-Olia-660-Intense-Red-Permanent-Hair-Dye-537874.jpg")>
+<img align="right;" src="https://user-images.githubusercontent.com/15791354/38782084-5ad7ca08-40bc-11e8-8e3c-d7c43223fe4e.jpg">
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="kalrMu5"><a href="//imgur.com/kalrMu5">&quot;I&#39;ll take the stairs!&quot;</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 ![image003](https://user-images.githubusercontent.com/15791354/38782085-5ae660e0-40bc-11e8-87c6-82a561636a4f.png)
 
 ![image004](https://user-images.githubusercontent.com/15791354/38782086-5af7ba5c-40bc-11e8-855c-d82a00bd4c16.jpg)
