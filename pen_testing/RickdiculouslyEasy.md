@@ -243,37 +243,39 @@ After grabbing the two files, I opened the JPG to see if the picture would show 
 </p>
 
 Worthless. My next guess is to check for Steganography, which is a term for hidden data inside a file, be it pictures, music, etc. An easy tool that checks any file time for human readable words is called strings.
+
+
+Most of what strings output can only be described as pure garbage. But from the first few results was an entire message telling me the password to my journal zip file (Meeseek). Applying this password gives me journal.txt.
+
+
+4.3 RickSanchez
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782116-5cac47be-40bc-11e8-8ee8-b41660ec8cf1.png">
 </p>
 
-Most of what strings output can only be described as pure garbage. But from the first few results was an entire message telling me the password to my journal zip file (Meeseek). Applying this password gives me journal.txt.
+So Rick has two directories inside of his own. One that claims not to have flags, which I checked out anyway…more cats. And the other, RICKS_SAFE. 
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782117-5cbba9e8-40bc-11e8-8695-94cef23b8fa0.jpg">
 <br>Reading this file gives me some kind of hint about a password and the flag{131333} for 80/130 pts. Now I’ll SSH back into the target as Summer and check out RickSanchez’s directory.</p>
 
-4.3 RickSanchez
+In here I find a file called safe, which I can read but no more. Trying to read this file, however, will produce complete garbage. Why? Because it is not a text file, but a binary file (i.e. program/executable). Permission do not allow me to run this program, but I already explained how to get around this.
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782118-5cc972f8-40bc-11e8-8df6-0f5a75de2085.jpg">
 <br>So Rick has two directories inside of his own. One that claims not to have flags, which I checked out anyway…more cats. And the other, RICKS_SAFE. </p>
 
+Root still was not given privileges to run this program, so I need to change those permissions using the ```chmod``` command to allow that. 
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782119-5cd7b53e-40bc-11e8-8b25-13269c23ccb6.jpg">
 <br></p>
-In here I find a file called safe, which I can read but no more. Trying to read this file, however, will produce complete garbage. Why? Because it is not a text file, but a binary file (i.e. program/executable). Permission do not allow me to run this program, but I already explained how to get around this.
+**Unrelated to Challenge: if you still get an error including the word “libmcrypt” run this command…
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782120-5ce55400-40bc-11e8-9ad0-86effb3cfa32.jpg">
 <br></p>
-Root still was not given privileges to run this program, so I need to change those permissions using the ```chmod``` command to allow that. 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782121-5cf42a02-40bc-11e8-9a95-f36561062e4e.jpg">
-<br></p>
-**Unrelated to Challenge: if you still get an error including the word “libmcrypt” run this command…
-<p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782122-5d02da02-40bc-11e8-9c60-b0846d93b053.jpg">
-<br></p>
-
 Running the program shows me a conversation between past and present Rick telling future Rick to use Command Line Arguments. Most commands in linux like ls or cat have a similar format that goes like this:
 
 		Format: <command_name> <preference flags> <argument1> <argument n+1> …
@@ -281,22 +283,26 @@ Running the program shows me a conversation between past and present Rick tellin
 So this time when I ran ./safe I passed the argument “idk” just to see what happens.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782123-5d124cee-40bc-11e8-9a6b-97d13223e237.png">
+<img src="https://user-images.githubusercontent.com/15791354/38782121-5cf42a02-40bc-11e8-9a95-f36561062e4e.jpg">
 <br></p>
+
 The program output the word “decrypt” followed by nonsense, which hints to me that this program decrypts its contents when passed the right argument, like a key. Attempting to reverse engineer the binary showed me that the binary used a modern encryption scheme too complex to expect to recover the key this way. I could attempt to brute force (try all possible inputs till I get the correct one), but without any constraints to narrow possible options this process could be endless. I am more likely to find the key somewhere hidden in the target machine, if I have not already found it. Which brings me back to my hint about a safe-password/password-safe from the last flag.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782124-5d22fd5a-40bc-11e8-823a-affab2a43f92.jpg">
+<img src="https://user-images.githubusercontent.com/15791354/38782122-5d02da02-40bc-11e8-9c60-b0846d93b053.jpg">
 <br></p>
+
 Going back to that I realized I was given the flag as the key to Rick’s safe. Using the number in that flag decrypted the message to give me a hint for user RickSanchez’s password and another flag for 100/130 pts.
 The hint is that the flag starts with an uppercase character, followed by a single digit, then one of the words from the name of Rick’s old band. What I need to do here is create a list of all possibilities that meet these constraints (known in Pen Testing as a wordlist or dictionary) and attempt logging in with each one until I get the correct password. Doing either of those manually would be painstaking so I’m going to use Kali tools to do that for me. Also assuming I actually did Recon, I would know that Rick’s old band name was called, The Flesh Curtains.
 
 a) Create a Wordlist/Dictionary:
 
 You can create a custom wordlist with several different tools or write some code in python or another language to do it for you. I decided to go with the command line tool ```crunch``` made specifically for this task. 
+
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782125-5d3122cc-40bc-11e8-9fec-99766749e516.jpg">
+<img src="https://user-images.githubusercontent.com/15791354/38782123-5d124cee-40bc-11e8-9a6b-97d13223e237.png">
 <br></p>
+
 Format: ```crunch <min> <max>  - <preference> <syntax in preference>```
 min: minimum number of characters in my password 
 max: maximum number of characters in my password
@@ -307,14 +313,19 @@ syntax: making a pattern to better specify what characters should be used where
 In this example, I specify my password will be exactly ```10``` characters long and passwords should be generated in a pattern (-t) where the first character is some uppercase letter (,) the second is a digit (%) and the last three are always the word ```Curtains```. Then I funneled those results (>) into a text file called ```rick_wordlist.txt```. I ran crunch two more times to include the possibilities for ```Flesh``` and ```The``` but to keep the dictionary sizes small for the sake of speed I separated the results of each into their own list file.
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782126-5d3e2eae-40bc-11e8-9c04-8004677ca083.jpg">
+<img src="https://user-images.githubusercontent.com/15791354/38782124-5d22fd5a-40bc-11e8-823a-affab2a43f92.jpg">
+<br></p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782125-5d3122cc-40bc-11e8-9fec-99766749e516.jpg">
 <br>This is what my dictionary looked like once I finished with crunch…</p>
 
 b) Dictionary Attacking
 
-Then I used the tool ```hydra```, a network logon cracker to quickly attempt all the possible passwords for me.
+Then I used the tool hydra, a network logon cracker to quickly attempt all the possible passwords for me.
+
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782127-5d4c46ce-40bc-11e8-8ac2-455eb01ca279.jpg">
+<img src="https://user-images.githubusercontent.com/15791354/38782126-5d3e2eae-40bc-11e8-9c04-8004677ca083.jpg">
 <br></p>
 **Again, check out the man pages for hydra using ```man hydra```.
 
@@ -323,13 +334,16 @@ Specifying ```-l```ogin as RickSanchez using ```–P```asswords from rick_wordli
 4.4 Becoming Root(Administrator)
 
 With the password to RickSanchez, I logged into the target machine. 
+Then I used the tool ```hydra```, a network logon cracker to quickly attempt all the possible passwords for me.
+
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782128-5d59a1fc-40bc-11e8-9c68-acb8770b41dc.jpg">
+<img src="https://user-images.githubusercontent.com/15791354/38782127-5d4c46ce-40bc-11e8-8ac2-455eb01ca279.jpg">
 <br></p>
+
 I know that when I was logged in to the target as Summer I was already able to move laterally through the target to obtain, and eventually use, all the content in both Rick and Mortys’ user accounts. So I know becoming Rick will not give me access to new files in Rick’s directory. Going back to Rick’s password hints found earlier, the last sentence makes a reference to sudo and uses the word wheely instead of really. 
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/15791354/38782129-5d668e58-40bc-11e8-8f23-4254f4c0d2ec.jpg">
+<img src="https://user-images.githubusercontent.com/15791354/38782128-5d59a1fc-40bc-11e8-9c68-acb8770b41dc.jpg">
 <br></p>
 
 Sudo is a command that allows users to perform actions they do not have the permissions for by either proving they have the password to root OR being given special permissions which would have to be stated in the sudoers file located in /etc/sudoers. 
@@ -337,20 +351,31 @@ Sudo is a command that allows users to perform actions they do not have the perm
 The Wheel Group is a special user group used in Linux to control access to the sudo command. If users are in this group, they will be allowed to use any commands specified for wheel in the sudoers file as if they were the superuser (aka root).
 
 While checking what groups RickSanchez is a member of shows he is, in fact, a member of the wheel group.
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/15791354/38782129-5d668e58-40bc-11e8-8f23-4254f4c0d2ec.jpg">
+<br></p>
+
+I also checked for group associated with all users to see if Morty and/or Summer were members of any groups as well to find they were not.
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782130-5d758d54-40bc-11e8-865f-a38953c6b239.jpg">
 <br></p>
 
-I also checked for group associated with all users to see if Morty and/or Summer were members of any groups as well to find they were not.  
+Now that I know Rick can likely run commands as if logged in as root. I checked his sudo permissions to see exactly what commands I have this privileged access to. 
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782131-5d835ff6-40bc-11e8-803b-6734bc776290.jpg">
-<br></p>
+<br>This descriptions shows that, on (ALL) machines, Rick has access to use ALL possible commands as if root itself.</p>
 
-Now that I know Rick can likely run commands as if logged in as root. I checked his sudo permissions to see exactly what commands I have this privileged access to. 
+This basically means that Rick can do anything root can do, including BE root, because he is allowed access to every command, which include one called su that allows a user to switch accounts to another user. Whereas other users would be required to know the password to the user they are switching to, Rick, like root, can switch into any account without needing a password. 
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782132-5d911786-40bc-11e8-8818-383f84257816.jpg">
-<br>This descriptions shows that, on (ALL) machines, Rick has access to use ALL possible commands as if root itself.</p>
-This basically means that Rick can do anything root can do, including BE root, because he is allowed access to every command, which include one called su that allows a user to switch accounts to another user. Whereas other users would be required to know the password to the user they are switching to, Rick, like root, can switch into any account without needing a password. 
+<br></p>
+
+And that is exactly how I became root user. From there I just navigated to the directory for root user where I finally had the permission to read the flag waiting for me there for 130/130 pts. 
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782133-5d9ffca6-40bc-11e8-9a86-10829f91bbc8.jpg">
 <br></p>
