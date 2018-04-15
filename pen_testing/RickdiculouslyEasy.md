@@ -1,10 +1,10 @@
 
-				Penetration Testing w/Rick and Morty Walkthrough
-						by Elan Rasabi
+[example link](http://hmarco.org/data/Preventing_brute_force_attacks_against_stack_canary_protection_on_networking_servers.pdf)
+				
+					Penetration Testing w/Rick and Morty Walkthrough
+							by Elan Rasabi
 
 Okay so I’ve got my attack machine (Kali Linux) in range to communicate directly with my target machine (Fedora Linux). My assignment is simple, find my target on the network and get any all information I can on it to reach the end goal of getting root (administrator privileges) essentially owning the target. There will be flags located in inside the target Virtual Machine (VM) to help me know that I am going down the right rabbit holes. So I will break this Penetration Test down as best as I can into the fundamental phases of the job, which is best represented by this flow diagram I found.
-
-[brute force](http://hmarco.org/data/Preventing_brute_force_attacks_against_stack_canary_protection_on_networking_servers.pdf)
 
 #1 Recon: 		Collect information on anything that help you understand the target.
 #2 Scanning: 		Discover operating systems, open ports, running services, vulnerabilities
