@@ -247,24 +247,27 @@ Worthless. My next guess is to check for Steganography, which is a term for hidd
 
 Most of what strings output can only be described as pure garbage. But from the first few results was an entire message telling me the password to my journal zip file (Meeseek). Applying this password gives me journal.txt.
 
-
-4.3 RickSanchez
-
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782116-5cac47be-40bc-11e8-8ee8-b41660ec8cf1.png">
 </p>
 
-So Rick has two directories inside of his own. One that claims not to have flags, which I checked out anyway…more cats. And the other, RICKS_SAFE. 
+Reading this file gives me some kind of hint about a password and the flag{131333} for 80/130 pts. Now I’ll SSH back into the target as Summer and check out RickSanchez’s directory.
+
+4.3 RickSanchez
+
+
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782117-5cbba9e8-40bc-11e8-8695-94cef23b8fa0.jpg">
-<br>Reading this file gives me some kind of hint about a password and the flag{131333} for 80/130 pts. Now I’ll SSH back into the target as Summer and check out RickSanchez’s directory.</p>
+<br>So Rick has two directories inside of his own. One that claims not to have flags, which I checked out anyway…more cats. And the other, RICKS_SAFE.</p>
 
 In here I find a file called safe, which I can read but no more. Trying to read this file, however, will produce complete garbage. Why? Because it is not a text file, but a binary file (i.e. program/executable). Permission do not allow me to run this program, but I already explained how to get around this.
 
+
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/15791354/38782118-5cc972f8-40bc-11e8-8df6-0f5a75de2085.jpg">
-<br>So Rick has two directories inside of his own. One that claims not to have flags, which I checked out anyway…more cats. And the other, RICKS_SAFE. </p>
+<br></p>
 
 Root still was not given privileges to run this program, so I need to change those permissions using the ```chmod``` command to allow that. 
 
