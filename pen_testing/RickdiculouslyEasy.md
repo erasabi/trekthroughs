@@ -82,7 +82,9 @@ Port 21: ftp version is vsftpd 3.0.3, vulnerability: anonymous login allowed
              Port 22222: Service is OpenSSH 7.5 and the ssh-hostkeys are shown below
 	All other ports: No helpful information has been found 
 
-3 Enumeration:  	Gathering information that is more active. Establishing connections and interacting with the target. I can what I have learned from my scanning to enumerate more intelligently.
+3 Enumeration:  Gathering information that is more agressive by establishing connections and interacting with the target. 
+
+I can use what use I have learned from my scanning to enumerate more intelligently.
 
 3.1 Port 21 (FTP)
 Although vsftpd has exploits available, my scans showed that anonymous ftp login is allowed. So let’s try logging into ftp as anonymous. 
