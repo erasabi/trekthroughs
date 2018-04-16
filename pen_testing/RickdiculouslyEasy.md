@@ -82,7 +82,7 @@ Port 21: ftp version is vsftpd 3.0.3, vulnerability: anonymous login allowed
              Port 22222: Service is OpenSSH 7.5 and the ssh-hostkeys are shown below
 	All other ports: No helpful information has been found 
 
-3 Enumeration:  Gathering information that is more agressive by establishing connections and interacting with the target. 
+3 Enumeration:  Gathering information that is more aggressive by establishing connections and interacting with the target. 
 
 I can use what use I have learned from my scanning to enumerate more intelligently.
 
